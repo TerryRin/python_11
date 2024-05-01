@@ -10,7 +10,6 @@ from model.pages.registration_page import RegistrationPage
 @allure.feature("Форма регистрации")
 @allure.story("Заполнение формы регистрации")
 @allure.link("https://demoqa.com", name="Test")
-
 def test_form():
     with allure.step("Заполнение страницы"):
         registration_page = RegistrationPage()
