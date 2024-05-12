@@ -1,9 +1,22 @@
 import pytest
+from dotenv import load_dotenv
 from selene import browser
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from utils import attach
+
+
+@pytest.fixture(scope='function', autouse=True)
+def config_browser_window():
+    browser.config.base_url = 'https://demoqa.com'
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
+
+
+@pytest.fixture(scope='function', autouse=True)
+def load_env():
+    load_dotenv()
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -22,11 +35,7 @@ def browser_manager(request):
         command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
         options=options
     )
-
     browser.config.driver = driver
-    browser.config.base_url = 'https://demoqa.com'
-    browser.config.window_width = 1920
-    browser.config.window_height = 1080
     yield browser
 
     attach.add_screenshot(browser)
