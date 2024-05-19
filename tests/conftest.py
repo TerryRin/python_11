@@ -8,13 +8,6 @@ from utils import attach
 
 
 @pytest.fixture(scope='function', autouse=True)
-def config_browser_window():
-    browser.config.base_url = 'https://demoqa.com'
-    browser.config.window_width = 1920
-    browser.config.window_height = 1080
-
-
-@pytest.fixture(scope='function', autouse=True)
 def load_env():
     load_dotenv()
 
@@ -36,6 +29,9 @@ def browser_manager(request):
         options=options
     )
     browser.config.driver = driver
+    browser.config.base_url = 'https://demoqa.com'
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
     yield browser
 
     attach.add_screenshot(browser)
